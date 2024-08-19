@@ -19,12 +19,13 @@ public class UserController {
     @Autowired
     private UserService userService;
    
-
+   @Autowired
+    private RestTemplate restTemplate;
     @GetMapping("/{userId}")
     public User getUser(@PathVariable("userId") Long userId) {
 
         User user = this.userService.getUser(userId);
-      
+       List contacts = this.restTemplate.getForObject("localhost:9002/customer/user" +userId , List.class);
      
       return user ;
 
